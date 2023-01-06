@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "io.freefair.lombok" version "6.6.1"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+ext {
+    helidonversion = '3.0.2'
+}
+dependencies {
+    //servidor
+    implementation platform("io.helidon:helidon-dependencies:${project.helidonversion}")
+    implementation 'io.helidon.microprofile.server:helidon-microprofile-server'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-binding'
+    //manejo de datos
+    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-core
+    implementation 'org.jdbi:jdbi3-core:3.1.0'
+    // jdbi3
+    //implementation 'org.jdbi:jdbi3-core:3.36.0'
+    // conexion SQLObject
+    implementation 'org.jdbi:jdbi3-sqlobject:3.36.0'
+    // conexion Jason
+    implementation group: 'org.jdbi', name: 'jdbi3-jackson2', version: '3.36.0'
+    // conexion Postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1'
+    // pool de Conexion
+    implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.9.0'
+    // hikari https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation 'com.zaxxer:HikariCP:3.4.5'
+    runtimeOnly 'org.jboss:jandex'
+}
+
+sourceSets{
+    main{
+        output.resourcesDir = file("${buildDir}/classes/java/main")
+    }
+}
